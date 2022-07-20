@@ -1,10 +1,11 @@
 import React from 'react'
 import {Routes, Route} from 'react-router-dom'
-import {Explore} from './Explore'
-import {Advertise} from './Advertise'
-import {Blog} from './Blog'
-import {Login} from './Login'
-import {Signup} from './Signup'
+import Home from './Home'
+import Explore from './Explore'
+import Advertise from './Advertise'
+import Blog from './Blog'
+import Login from './Login'
+import Signup from './Signup'
 const AllRoutes = () => {
   return (
     <>
