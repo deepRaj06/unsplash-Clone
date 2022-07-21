@@ -14,11 +14,16 @@ import {
   Divider,
   Icon,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
 import { BsTwitter, BsFacebook, BsInstagram } from "react-icons/bs";
+import Footer from "../Components/Footer";
+import axios from "axios";
 
 const Explore = () => {
+
+  const [imgs, setImgs] = useState([]);
+
   const firImg = {
     blurImg:
       "url(https://images.unsplash.com/photo-1536599018102-9f803c140fc1?dpr=1&auto=format&fit=crop&w=440&h=220&q=60) center/cover no-repeat",
@@ -65,13 +70,25 @@ const Explore = () => {
       transition: "#0006 .2s",
     },
   };
-  
+
   // const hoverGreyToBlack = {
   //   _hover: {
   //     cursor: 'pointer',
   //     color: 'black'
   //   },
   // }
+
+  const API = "MCBGgZpaIiuWqzkVd7s2LPheovdkvFKFdTmRNd47b1M";
+
+  useEffect(() => {
+    axios({
+      url: `https://api.unsplash.com/search/photos/?query=nature&per_page=100&client_id=${API};`,
+      method: "GET",
+    }).then((res) => {
+      console.log(res.data.results);
+      setImgs(res.data.results);
+    });
+  }, []);
 
   function images() {}
 
@@ -104,14 +121,7 @@ const Explore = () => {
         </Flex>
       </Box>
 
-      <Box
-        
-        mt="4rem"
-        w="86%"
-        ml="auto"
-        mr="auto"
-        mb="1rem"
-      >
+      <Box mt="4rem" w="86%" ml="auto" mr="auto" mb="1rem">
         <Text
           pl="12px"
           mt="1rem"
@@ -261,13 +271,13 @@ const Explore = () => {
       </Box>
 
       <Box
-        border="1px solid black"
+        // border="1px solid black"
         mt="4rem"
         w="86%"
         ml="auto"
         mr="auto"
         mb="1rem"
-        h="100vh"
+        // h="100vh"
       >
         <Text
           pl="12px"
@@ -279,136 +289,29 @@ const Explore = () => {
         >
           Free high-resolution Unsplash photos
         </Text>
-      </Box>
-
-      <Box
-       
+        <Box
         mt="4rem"
-        w="86%"
+        w="100%"
         ml="auto"
         mr="auto"
-        mb="1rem"
-        h="400px"
       >
-        <Flex alignItems="flex-start">
-          <Box>
-            <Flex flexDirection="column" alignItems="flex-start">
-              <Text fontWeight="600" mb="0.6rem">
-                Unsplash
-              </Text>
-              <Text>
-                Beautiful, free images gifted by the world’s most generous
-              </Text>
-              <Text marginTop="2px">
-                community of photographers. Better than any royalty free or
-              </Text>
-              <Text mt="2px" mb="1rem">
-                stock photos.
-              </Text>
-              <VStack spacing="8px" alignItems="flex-start">
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">About</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Blog</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Community</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Join the team</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Developers/API</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Press</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Help Center</Text>
-              </VStack>
-            </Flex>
-          </Box>
-
-          <Spacer></Spacer>
-
-          <Box>
-            <Flex flexDirection="column" alignItems="flex-start">
-              <VStack spacing="8px" alignItems="flex-start">
-                <Text fontWeight="600">Product</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Explore</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Unsplash Awards</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Unsplash for Education</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Unsplash for iOS</Text>
-                <Text  _hover={{cursor: 'pointer', color: 'black'}} color="gray">Apps & Plugins</Text>
-              </VStack>
-            </Flex>
-          </Box>
-
-          <Spacer></Spacer>
-
-          <Box>
-            <Flex flexDirection="column" alignItems="flex-start">
-              <VStack spacing="8px" alignItems="flex-start">
-                <Text fontWeight="600">Popular</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Backgrounds</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Free Images</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Free Stock Photos</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Happy Birthday Images</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Cool Photos</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Nature Pictures</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Black Backgrounds</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">White Backgrounds</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Textures</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Desktop Backgrounds</Text>
-              </VStack>
-            </Flex>
-          </Box>
-
-          <Spacer></Spacer>
-
-          <Box>
-            <Flex flexDirection="column" alignItems="flex-start">
-              <VStack spacing="8px" alignItems="flex-start">
-                <Text fontWeight="600">Wallpapers</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">HD Wallpapers</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">4k Wallpapers</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">iPhone Wallpapers</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Cool Wallpapers</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Cute Wallpapers</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Live Wallpapers</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">PC Wallpapers</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Black Wallpapers</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">iPad Wallpapers</Text>
-                <Text _hover={{cursor: 'pointer', color: 'black'}} color="gray">Desktop Wallpapers</Text>
-              </VStack>
-            </Flex>
-          </Box>
-        </Flex>
+        <Grid
+          templateRows="repeat(2, 1fr)"
+          templateColumns="repeat(3, 1fr)"
+          gap={4}
+          m='auto'
+        >
+          {imgs.map((img) => (
+            <GridItem rowSpan={1}>
+              <Image w='400px' h='400px' borderRadius='6px' src={img.urls.regular} />
+            </GridItem>
+          ))}
+        </Grid>
       </Box>
 
-      <Divider
-        opacity="4"
-        h="4px"
-        colorScheme="gray"
-        variant="solid"
-        ml="auto"
-        mr="auto"
-        w="86%"
-        orientation="horizontal"
-      ></Divider>
-
-      <Box
-        mt="4rem"
-        w="86%"
-        ml="auto"
-        mr="auto"
-        mb="1rem"
-        h="100px"
-      >
-        <Flex >
-          <HStack spacing='20px' p='10px'>
-            <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Privacy Policy</Text>
-            <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Terms</Text>
-            <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Security</Text>
-          </HStack>
-
-          <Spacer></Spacer>
-
-          <HStack spacing='20px' p='10px'>
-            <Icon _hover={{cursor: 'pointer', color: 'black'}} color='gray' w={6} h={6} as={BsTwitter} />
-            <Icon _hover={{cursor: 'pointer', color: 'black'}} color='gray' w={6} h={6} as={BsFacebook} />
-            <Icon _hover={{cursor: 'pointer', color: 'black'}} color='gray' w={6} h={6} as={BsInstagram} />
-          </HStack>
-        </Flex>
       </Box>
+
+      <Footer />
     </>
   );
 };
