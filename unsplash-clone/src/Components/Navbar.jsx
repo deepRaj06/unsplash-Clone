@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -48,8 +48,15 @@ import {
   MenuOptionGroup,
   MenuDivider,
 } from "@chakra-ui/react";
+import { BiUserCircle } from "react-icons/bi";
+
+import { AuthContext } from "../Context/AuthContext";
+import NavbarSearchBar from "./NavbarSearchBar";
 
 const Navbar = () => {
+  const { state, handleSearch, query, setQuery } = useContext(AuthContext);
+  // const [query, setQuery] = useState('');
+
   return (
     <>
       <Box p={2}>
@@ -62,24 +69,7 @@ const Navbar = () => {
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2xuv6LDrfPyFSThNmHnnTdiJCEtdEc66Ek74mpouVt6H8rKEV"
               ></Image>
             </Link>
-            <InputGroup w="760px">
-              <InputLeftElement
-                pointerEvents="none"
-                children={<Search2Icon color="gray.400" />}
-              />
-              <Input
-                border="1px solid #0000"
-                borderRadius="24px"
-                backgroundColor="#eee"
-                h="40px"
-                type="tel"
-                placeholder="Search free high-resolution photos"
-              />
-              <InputRightElement
-                children={<MdCenterFocusWeak color="gray.400" />}
-              />
-            </InputGroup>
-
+            <NavbarSearchBar/>
             <Text>
               <Link to="/explore">Explore</Link>
             </Text>
@@ -90,16 +80,19 @@ const Navbar = () => {
               <Link to="/blog">Blog</Link>
             </Text>
             <Divider orientation="vertical" />
-            <HStack spacing="10px">
-              <Text>
-                <Link to="/login">Login</Link>
-              </Text>
-              <Text>/</Text>
-              <Text>
-                <Link to="/signup">Signup</Link>
-              </Text>
-            </HStack>
-
+            {!state.isAuth ? (
+              <HStack spacing="10px">
+                <Text>
+                  <Link to="/login">Login</Link>
+                </Text>
+                <Text>/</Text>
+                <Text>
+                  <Link to="/signup">Signup</Link>
+                </Text>
+              </HStack>
+            ) : (
+              <Icon ml='2rem' mr='2rem' w={6} h={6} as={BiUserCircle}></Icon>
+            )}
             <Button
               _hover={{
                 borderColor: "#000",
@@ -109,7 +102,7 @@ const Navbar = () => {
               variant="outline"
               borderColor="lightgrey"
             >
-              Submit a photo
+              Send a photo
             </Button>
 
             <Popover placement="bottom-end">
@@ -124,37 +117,93 @@ const Navbar = () => {
                     <Container>
                       <Flex alignContent="flex-start">
                         <HStack spacing="50px">
-
-                          <Box pb='4rem'>
+                          <Box pb="4rem">
                             <Flex
                               flexDirection="column"
                               alignItems="flex-start"
                             >
-                              <Text fontWeight='600' color='black' mb="1rem">Business</Text>
+                              <Text fontWeight="600" color="black" mb="1rem">
+                                Business
+                              </Text>
                               <VStack spacing="8px" alignItems="flex-start">
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>About</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>History</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Join the team</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Press</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Contact Us</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Help Center</Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  About
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  History
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Join the team
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Press
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Contact Us
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Help Center
+                                </Text>
                               </VStack>
                             </Flex>
                           </Box>
 
-                          <Box pb='8rem'>
+                          <Box pb="8rem">
                             <Flex
                               flexDirection="column"
                               alignContent="flex-start"
                             >
-                              <Text fontWeight='600' color='black' textAlign="start" mb="1rem">
+                              <Text
+                                fontWeight="600"
+                                color="black"
+                                textAlign="start"
+                                mb="1rem"
+                              >
                                 Product
                               </Text>
                               <VStack spacing="8px" alignItems="flex-start">
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Developers/API</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Unsplash Dataset</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Unsplsh for iOS</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Apps & Plugins</Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Developers/API
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Unsplash Dataset
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Unsplsh for iOS
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Apps & Plugins
+                                </Text>
                               </VStack>
                             </Flex>
                           </Box>
@@ -164,19 +213,60 @@ const Navbar = () => {
                               flexDirection="column"
                               alignContent="flex-start"
                             >
-                              <Text fontWeight='600' color='black' textAlign="start" mb="1rem">
+                              <Text
+                                fontWeight="600"
+                                color="black"
+                                textAlign="start"
+                                mb="1rem"
+                              >
                                 Community
                               </Text>
                               <VStack spacing="8px" alignItems="flex-start">
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Become a Contributor</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Topics</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Collections</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Trends</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Unsplash Awards</Text>
-                                <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Stats</Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Become a Contributor
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Topics
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Collections
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Trends
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Unsplash Awards
+                                </Text>
+                                <Text
+                                  _hover={{ cursor: "pointer", color: "black" }}
+                                  color="gray"
+                                >
+                                  Stats
+                                </Text>
                               </VStack>
                               <Flex>
-                                <HStack spacing="20px" pt="10px" pb='6px' mt='1rem' mb='1rem'>
+                                <HStack
+                                  spacing="20px"
+                                  pt="10px"
+                                  pb="6px"
+                                  mt="1rem"
+                                  mb="1rem"
+                                >
                                   <Icon
                                     _hover={{
                                       cursor: "pointer",
@@ -211,7 +301,6 @@ const Navbar = () => {
                               </Flex>
                             </Flex>
                           </Box>
-
                         </HStack>
                       </Flex>
                     </Container>
@@ -220,30 +309,51 @@ const Navbar = () => {
 
                     <Box>
                       <Flex>
-                        <HStack spacing='20px'>
-                      <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>License</Text>
-                      <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Privacy Policy</Text>
-                      <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Terms</Text>
-                      <Text _hover={{cursor: 'pointer', color: 'black'}} color='gray'>Security</Text>
-                      </HStack>
-                      
-                      <Spacer></Spacer>
-                      
-                      <Menu>
-                        <MenuButton rightIcon={<ChevronDownIcon />}>
-                          <Button variant='ghost' rightIcon={<ChevronDownIcon />}>
-                          English
-                          </Button>
-                        </MenuButton>
-                        <MenuList>
-                          <MenuItem>Spanish</MenuItem>
-                          <MenuItem>Espanol</MenuItem>
-                        </MenuList>
-                      </Menu>
+                        <HStack spacing="20px">
+                          <Text
+                            _hover={{ cursor: "pointer", color: "black" }}
+                            color="gray"
+                          >
+                            License
+                          </Text>
+                          <Text
+                            _hover={{ cursor: "pointer", color: "black" }}
+                            color="gray"
+                          >
+                            Privacy Policy
+                          </Text>
+                          <Text
+                            _hover={{ cursor: "pointer", color: "black" }}
+                            color="gray"
+                          >
+                            Terms
+                          </Text>
+                          <Text
+                            _hover={{ cursor: "pointer", color: "black" }}
+                            color="gray"
+                          >
+                            Security
+                          </Text>
+                        </HStack>
+
+                        <Spacer></Spacer>
+
+                        <Menu>
+                          <MenuButton rightIcon={<ChevronDownIcon />}>
+                            <Button
+                              variant="ghost"
+                              rightIcon={<ChevronDownIcon />}
+                            >
+                              English
+                            </Button>
+                          </MenuButton>
+                          <MenuList>
+                            <MenuItem>Spanish</MenuItem>
+                            <MenuItem>Espanol</MenuItem>
+                          </MenuList>
+                        </Menu>
                       </Flex>
-
                     </Box>
-
                   </Box>
                 </PopoverBody>
               </PopoverContent>
