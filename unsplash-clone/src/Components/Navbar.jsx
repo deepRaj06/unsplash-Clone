@@ -14,6 +14,7 @@ import {
   InputLeftElement,
   InputRightElement,
   MenuButton,
+  Select,
   Spacer,
   Text,
 } from "@chakra-ui/react";
@@ -55,7 +56,6 @@ import NavbarSearchBar from "./NavbarSearchBar";
 
 const Navbar = () => {
   const { state, handleSearch, query, setQuery } = useContext(AuthContext);
-  // const [query, setQuery] = useState('');
 
   return (
     <>
@@ -69,7 +69,7 @@ const Navbar = () => {
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2xuv6LDrfPyFSThNmHnnTdiJCEtdEc66Ek74mpouVt6H8rKEV"
               ></Image>
             </Link>
-            <NavbarSearchBar/>
+            <NavbarSearchBar />
             <Text>
               <Link to="/explore">Explore</Link>
             </Text>
@@ -91,7 +91,7 @@ const Navbar = () => {
                 </Text>
               </HStack>
             ) : (
-              <Icon ml='2rem' mr='2rem' w={6} h={6} as={BiUserCircle}></Icon>
+              <Icon ml="2rem" mr="2rem" w={6} h={6} as={BiUserCircle}></Icon>
             )}
             <Button
               _hover={{
@@ -338,20 +338,15 @@ const Navbar = () => {
 
                         <Spacer></Spacer>
 
-                        <Menu>
-                          <MenuButton rightIcon={<ChevronDownIcon />}>
-                            <Button
-                              variant="ghost"
-                              rightIcon={<ChevronDownIcon />}
-                            >
-                              English
-                            </Button>
-                          </MenuButton>
-                          <MenuList>
-                            <MenuItem>Spanish</MenuItem>
-                            <MenuItem>Espanol</MenuItem>
-                          </MenuList>
-                        </Menu>
+                        <Select
+                          w="110px"
+                          h="40px"
+                          border="none"
+                          placeholder="English"
+                        >
+                          <option value="option1">Spanish</option>
+                          <option value="option2">Espanol</option>
+                        </Select>
                       </Flex>
                     </Box>
                   </Box>
