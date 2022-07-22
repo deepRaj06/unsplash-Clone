@@ -18,13 +18,15 @@ const SearchBar = () => {
   const API = "MCBGgZpaIiuWqzkVd7s2LPheovdkvFKFdTmRNd47b1M";
 
   const handleSearch = () => {
-    axios({
-      url: `https://api.unsplash.com/search/photos/?query=${homeQuery}&per_page=100&client_id=${API};`,
-      method: "GET",
-    }).then((res) => {
-      setSearchedImg(true);
-      setImgs(res.data.results);
-    });
+    if (homeQuery !== "" && homeQuery !== null) {
+      axios({
+        url: `https://api.unsplash.com/search/photos/?query=${homeQuery}&per_page=100&client_id=${API};`,
+        method: "GET",
+      }).then((res) => {
+        setSearchedImg(true);
+        setImgs(res.data.results);
+      });
+    }
   };
 
   return (

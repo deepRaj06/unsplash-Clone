@@ -13,16 +13,19 @@ import {
   VStack,
   Divider,
   Icon,
+  Link,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
 import { BsTwitter, BsFacebook, BsInstagram } from "react-icons/bs";
 import Footer from "../Components/Footer";
 import axios from "axios";
+import { AuthContext } from "../Context/AuthContext";
+import { DownloadIcon } from "@chakra-ui/icons";
 
 const Explore = () => {
-
-  const [imgs, setImgs] = useState([]);
+  const { imgs, searchedImg } = useContext(AuthContext);
+  const [images, setImages] = useState([]);
 
   const firImg = {
     blurImg:
@@ -86,17 +89,15 @@ const Explore = () => {
       method: "GET",
     }).then((res) => {
       console.log(res.data.results);
-      setImgs(res.data.results);
+      setImages(res.data.results);
     });
   }, []);
-
-  function images() {}
 
   function wallpapers() {}
   return (
     <>
       <Navbar />
-      <Box mt="4rem" w="86%" ml="auto" mr="auto">
+      <Box mt="4rem" w="86%" ml="auto" mr="auto" pl="4px">
         <Text mb="0.8rem" align="start">
           Explore
         </Text>
@@ -123,7 +124,7 @@ const Explore = () => {
 
       <Box mt="4rem" w="86%" ml="auto" mr="auto" mb="1rem">
         <Text
-          pl="12px"
+          pl="4px"
           mt="1rem"
           mb="1rem"
           textAlign="start"
@@ -135,8 +136,8 @@ const Explore = () => {
         <Grid
           templateColumns="repeat(3, 1fr)"
           gap={6}
-          pl="12px"
-          pr="12px"
+          pl="4px"
+          pr="4px"
           boxSizing="border-box"
         >
           <GridItem borderRadius="6px" w="100%" h="300">
@@ -280,7 +281,7 @@ const Explore = () => {
         // h="100vh"
       >
         <Text
-          pl="12px"
+          pl="4px"
           mt="1rem"
           mb="1rem"
           textAlign="start"
@@ -289,26 +290,77 @@ const Explore = () => {
         >
           Free high-resolution Unsplash photos
         </Text>
-        <Box
-        mt="4rem"
-        w="100%"
-        ml="auto"
-        mr="auto"
-      >
-        <Grid
-          templateRows="repeat(2, 1fr)"
-          templateColumns="repeat(3, 1fr)"
-          gap={4}
-          m='auto'
-        >
-          {imgs.map((img) => (
-            <GridItem rowSpan={1}>
-              <Image w='400px' h='400px' borderRadius='6px' src={img.urls.regular} />
-            </GridItem>
-          ))}
-        </Grid>
-      </Box>
+        <Box mt="4rem" w="100%" ml="auto" mr="auto" pl="4px">
+          <Grid
+            templateRows="repeat(2, 1fr)"
+            templateColumns="repeat(3, 1fr)"
+            gap={8}
+            m="auto"
+            boxSizing="border-box"
+          >
+            {images !== "" && searchedImg === false
+              ? images.map((imgs) => (
+                  <GridItem
+                    boxSizing="border-box"
+                    position="relative"
+                    rowSpan={1}
+                  >
+                    <Image
+                      w="400px"
+                      h="400px"
+                      borderRadius="6px"
+                      src={imgs.urls.regular}
+                      cursor="zoom-in"
+                    />
 
+                    <Box
+                      position="absolute"
+                      bottom="0"
+                      background="rgba(0, 0, 0, 0.2)"
+                      width="97%"
+                      h="400px"
+                      transition=".5s ease"
+                      opacity="0"
+                      color="white"
+                      _hover={{
+                        opacity: 1,
+                      }}
+                    >
+                      <Flex p="10px" mt="22rem">
+                        <Text alignContent="flex-end">{imgs.user.name}</Text>
+                        <Spacer></Spacer>
+                        <Link
+                          href={imgs.links.download + `&force=true`}
+                          download
+                        >
+                          <Icon
+                            color="whiteAlpha.800"
+                            alignContent="flex-end"
+                            w={8}
+                            h={8}
+                            as={DownloadIcon}
+                            _hover={{
+                              color: "white",
+                              cursor: "pointer",
+                            }}
+                          ></Icon>
+                        </Link>
+                      </Flex>
+                    </Box>
+                  </GridItem>
+                ))
+              : imgs.map((img) => (
+                  <GridItem rowSpan={1}>
+                    <Image
+                      w="400px"
+                      h="400px"
+                      borderRadius="6px"
+                      src={img.urls.regular}
+                    />
+                  </GridItem>
+                ))}
+          </Grid>
+        </Box>
       </Box>
 
       <Footer />

@@ -177,7 +177,7 @@ const Signup = () => {
                     <Text>Password</Text>
                     <Text color="gray">(min. 8 char)</Text>
                   </Flex>
-                  <Input mb='1rem' w={510}></Input>
+                  <Input minlength="8"  mb='1rem' w={510}></Input>
                 </VStack>
 
                 <Button mt='2rem' w={510} bg="black" colorScheme='blackAlpha'>
