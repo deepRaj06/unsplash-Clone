@@ -11,7 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/layout";
 import React, { useContext, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 // import {FaFacebook} from '@chakra-ui/icons'
 import { FaFacebook } from "react-icons/fa";
@@ -22,17 +22,21 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import { AuthContext } from "../Context/AuthContext";
+import { useEffect } from "react";
 
 const Login = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+  const [signUpDetails, setSignUpDetails] = useState([]);
+  // console.log(signUpDetails);
   const [isError, setIsError] = useState(false);
 
   const navigate = useNavigate();
 
-  const auth = useContext(AuthContext);
+  const { setIsAuth } = useContext(AuthContext);
 
   const handleForm = (e) => {
     const { name, value } = e.target;
@@ -43,28 +47,35 @@ const Login = () => {
     });
   };
 
+  useEffect(() => {
+    axios({
+      url: "http://localhost:3004/signupInfo",
+      method: "GET",
+    }).then((res) => {
+      setSignUpDetails([...signUpDetails, ...res.data]);
+    });
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (form.email !== "" && form.password !== "") {
-      // console.log(form);
-      axios({
-        url:'https://reqres.in/api/login',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: {...form}
-      })
-      .then((res) => {
-        // console.log(res)
-        alert('Login Successfull☺️');
-        auth.handleLogin(res.token);
-        navigate('/')
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+      signUpDetails.map((creds) => {
+        if (
+          creds.email === form.email &&
+          creds.password === form.password
+        ) {
+          alert("Login Successfull☺️");
+          setIsAuth(true);
+          navigate("/");
+        } else {
+          alert("Invalid Login Credentials😔");
+          setForm({
+            email: "",
+            password: "",
+          });
+        }
+      });
     } else {
       setIsError(true);
     }

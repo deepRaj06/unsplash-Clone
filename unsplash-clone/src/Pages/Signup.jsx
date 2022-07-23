@@ -12,8 +12,10 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaFacebook } from "react-icons/fa";
+import { useState } from "react";
+import axios from "axios";
 
 const Signup = () => {
   const leftImgText = {
@@ -70,6 +72,42 @@ const Signup = () => {
     fontWeight: "600",
   };
 
+  const navigate = useNavigate();
+
+  const [signUpInfos, setSignUpInfos] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+    password: "",
+  });
+
+  const handleSignUpInfo = (e) => {
+
+    const {name, value} = e.target;
+
+    setSignUpInfos({
+      ...signUpInfos,
+      [name] : value
+    })
+  }
+
+  const navigateToLogin = (e) => {
+    e.preventDefault();
+    axios({
+      url: 'http://localhost:3004/signupInfo',
+      method: 'POST',
+      data: {...signUpInfos}
+    })
+    .then((res) => {
+      console.log(res);
+      navigate('/login');
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
   return (
     <>
       <Box>
@@ -93,7 +131,6 @@ const Signup = () => {
             <Box style={leftImgText}>
               <Link to="/">
                 <Image
-                  // styles={leftImgText}
                   w="44px"
                   h="48px"
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2xuv6LDrfPyFSThNmHnnTdiJCEtdEc66Ek74mpouVt6H8rKEV"
@@ -126,7 +163,7 @@ const Signup = () => {
                 </Text>
                 <Flex justifyContent="center" mb="4rem">
                   <Text mr="6px">Already have an account?</Text>
-                  <Text cursor='pointer' color="gray" as="u">
+                  <Text cursor="pointer" color="gray" as="u">
                     Login
                   </Text>
                 </Flex>
@@ -141,7 +178,7 @@ const Signup = () => {
                 </Button>
                 <Text mb="2rem">OR</Text>
 
-                <VStack spacing='10px' alignItems='flex-start'>
+                <VStack spacing="10px" alignItems="flex-start">
                   <Flex flexDirection="column">
                     {/* <VStack> */}
 
@@ -156,14 +193,31 @@ const Signup = () => {
 
                     <Flex>
                       <HStack spacing="10px">
-                        <Input w={250}></Input>
-                        <Input w={250}></Input>
+                        <Input
+                          name="firstName"
+                          value={signUpInfos.firstName}
+                          onChange={handleSignUpInfo}
+                          w={250}
+                        ></Input>
+
+                        <Input
+                          name="lastName"
+                          value={signUpInfos.lastName}
+                          onChange={handleSignUpInfo}
+                          w={250}
+                        ></Input>
                       </HStack>
                     </Flex>
                   </Flex>
 
                   <Text textAlign="start">Email</Text>
-                  <Input w={510}></Input>
+                  <Input
+                    type="email"
+                    name="email"
+                    value={signUpInfos.email}
+                    onChange={handleSignUpInfo}
+                    w={510}
+                  ></Input>
 
                   <Flex>
                     <Text>Username</Text>
@@ -171,26 +225,46 @@ const Signup = () => {
                       (only letters, numbers, and underscores)
                     </Text>
                   </Flex>
-                  <Input w={510}></Input>
+                  <Input
+                    name="username"
+                    value={signUpInfos.username}
+                    onChange={handleSignUpInfo}
+                    w={510}
+                  ></Input>
 
                   <Flex>
                     <Text>Password</Text>
                     <Text color="gray">(min. 8 char)</Text>
                   </Flex>
-                  <Input minlength="8"  mb='1rem' w={510}></Input>
+                  <Input 
+                  name='password'
+                  value={signUpInfos.password}
+                  onChange={handleSignUpInfo}
+                  minlength="8" 
+                  mb="1rem" 
+                  w={510}>                   
+                  </Input>
                 </VStack>
 
-                <Button mt='2rem' w={510} bg="black" colorScheme='blackAlpha'>
-                    Join
-                  </Button>
+                <Button 
+                onClick={navigateToLogin}
+                mt="2rem" 
+                w={510} 
+                bg="black" 
+                colorScheme="blackAlpha">
+                  Join
+                </Button>
 
-                  <Flex mb='4rem' mt='2rem' justifyContent='center'>
-                    <Text>By joining, you agree to the</Text>
-                    <Text cursor='pointer' ml="6px" as="u">Terms</Text>
-                    <Text ml='6px'>and</Text>
-                    <Text cursor='pointer' ml="6px" as="u">Privacy Policy.</Text>
-                  </Flex>
-
+                <Flex mb="4rem" mt="2rem" justifyContent="center">
+                  <Text>By joining, you agree to the</Text>
+                  <Text cursor="pointer" ml="6px" as="u">
+                    Terms
+                  </Text>
+                  <Text ml="6px">and</Text>
+                  <Text cursor="pointer" ml="6px" as="u">
+                    Privacy Policy.
+                  </Text>
+                </Flex>
               </Container>
             </Flex>
           </Box>

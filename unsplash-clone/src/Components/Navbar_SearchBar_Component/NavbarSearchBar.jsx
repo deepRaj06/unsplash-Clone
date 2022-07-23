@@ -9,7 +9,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useContext } from "react";
 import { MdCenterFocusWeak } from "react-icons/md";
-import { AuthContext } from "../Context/AuthContext";
+import { AuthContext } from "../../Context/AuthContext";
 
 const NavbarSearchBar = () => {
   const { setImgs, setSearchedImg } = useContext(AuthContext);
