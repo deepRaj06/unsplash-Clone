@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Image, Spacer, Text, VStack } from "@chakra-ui/react";
 import React from "react";
-import SearchBar from "../Components/SearchBar";
+import SearchBar from "../SearchBar";
 
 const Home_WallpapersTab = () => {
   const bgImg = {

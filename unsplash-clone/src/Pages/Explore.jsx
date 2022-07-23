@@ -14,6 +14,7 @@ import {
   Divider,
   Icon,
   Link,
+  Tooltip,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
@@ -22,6 +23,7 @@ import Footer from "../Components/Footer";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
 import { DownloadIcon } from "@chakra-ui/icons";
+import { MdOpenInNew } from "react-icons/md";
 
 const Explore = () => {
   const { imgs, searchedImg } = useContext(AuthContext);
@@ -298,67 +300,153 @@ const Explore = () => {
             m="auto"
             boxSizing="border-box"
           >
-            {images !== "" && searchedImg === false
-              ? images.map((imgs) => (
-                  <GridItem
-                    boxSizing="border-box"
-                    position="relative"
-                    rowSpan={1}
+          {images !== "" && searchedImg === false
+            ? images.map((imgs) => (
+                <GridItem
+                  boxSizing="border-box"
+                  position="relative"
+                  rowSpan={1}
+                >
+                  <Image
+                    w="400px"
+                    h="400px"
+                    borderRadius="6px"
+                    src={imgs.urls.regular}
+                    cursor="zoom-in"
+                  />
+                  <Box
+                    position="absolute"
+                    bottom="0"
+                    background="rgba(0, 0, 0, 0.4)"
+                    w="400px"
+                    h="400px"
+                    transition=".5s ease"
+                    opacity="0"
+                    color="white"
+                    _hover={{
+                      opacity: 1,
+                    }}
                   >
-                    <Image
-                      w="400px"
-                      h="400px"
-                      borderRadius="6px"
-                      src={imgs.urls.regular}
-                      cursor="zoom-in"
-                    />
-
-                    <Box
-                      position="absolute"
-                      bottom="0"
-                      background="rgba(0, 0, 0, 0.2)"
-                      width="97%"
-                      h="400px"
-                      transition=".5s ease"
-                      opacity="0"
-                      color="white"
-                      _hover={{
-                        opacity: 1,
-                      }}
-                    >
-                      <Flex p="10px" mt="22rem">
+                    <Flex flexDirection="column">
+                      <Box p="10px" textAlign="end">
+                          <Link
+                            href={imgs.links.download}
+                            target="_blank"
+                            download
+                          >
+                            <Icon
+                              color="whiteAlpha.800"
+                              textAlign="end"
+                              w={8}
+                              h={8}
+                              as={MdOpenInNew}
+                              _hover={{
+                                color: "white",
+                                cursor: "pointer",
+                              }}
+                            ></Icon>
+                          </Link>
+                      </Box>
+                      <Flex p="10px" mt="18rem">
                         <Text alignContent="flex-end">{imgs.user.name}</Text>
                         <Spacer></Spacer>
-                        <Link
-                          href={imgs.links.download + `&force=true`}
-                          download
-                        >
-                          <Icon
-                            color="whiteAlpha.800"
-                            alignContent="flex-end"
-                            w={8}
-                            h={8}
-                            as={DownloadIcon}
-                            _hover={{
-                              color: "white",
-                              cursor: "pointer",
-                            }}
-                          ></Icon>
-                        </Link>
+
+                        <Tooltip label="Click to download" closeOnClick={true}>
+                          <Link
+                            href={imgs.links.download + `&force=true`}
+                            download
+                          >
+                            <Icon
+                              color="whiteAlpha.800"
+                              alignContent="flex-end"
+                              w={8}
+                              h={8}
+                              as={DownloadIcon}
+                              _hover={{
+                                color: "white",
+                                cursor: "pointer",
+                              }}
+                            ></Icon>
+                          </Link>
+                        </Tooltip>
                       </Flex>
-                    </Box>
-                  </GridItem>
-                ))
-              : imgs.map((img) => (
-                  <GridItem rowSpan={1}>
-                    <Image
-                      w="400px"
-                      h="400px"
-                      borderRadius="6px"
-                      src={img.urls.regular}
-                    />
-                  </GridItem>
-                ))}
+                    </Flex>
+                  </Box>
+                </GridItem>
+              ))
+            : imgs.map((img) => (
+                <GridItem
+                  boxSizing="border-box"
+                  position="relative"
+                  rowSpan={1}
+                >
+                  <Image
+                    w="400px"
+                    h="400px"
+                    borderRadius="6px"
+                    src={img.urls.regular}
+                    cursor="zoom-in"
+                  />
+
+                  <Box
+                    position="absolute"
+                    bottom="0"
+                    background="rgba(0, 0, 0, 0.4)"
+                    w="400px"
+                    h="400px"
+                    transition=".5s ease"
+                    opacity="0"
+                    color="white"
+                    _hover={{
+                      opacity: 1,
+                    }}
+                  >
+                    <Flex flexDirection="column">
+                      <Box p="10px" textAlign="end">
+                          <Link
+                            href={img.links.download}
+                            target="_blank"
+                            download
+                          >
+                            <Icon
+                              color="whiteAlpha.800"
+                              textAlign="end"
+                              w={8}
+                              h={8}
+                              as={MdOpenInNew}
+                              _hover={{
+                                color: "white",
+                                cursor: "pointer",
+                              }}
+                            ></Icon>
+                          </Link>
+                      </Box>
+                      <Flex p="10px" mt="18rem">
+                        <Text alignContent="flex-end">{img.user.name}</Text>
+                        <Spacer></Spacer>
+                        <Tooltip label="Click to download" closeOnClick={true}>
+                          <Link
+                            href={img.links.download + `&force=true`}
+                            download
+                          >
+                            <Icon
+                              color="whiteAlpha.800"
+                              alignContent="flex-end"
+                              w={8}
+                              h={8}
+                              as={DownloadIcon}
+                              _hover={{
+                                color: "white",
+                                cursor: "pointer",
+                              }}
+                            ></Icon>
+                          </Link>
+                        </Tooltip>
+                      </Flex>
+                    </Flex>
+                  </Box>
+                </GridItem>
+              ))}
           </Grid>
         </Box>
       </Box>

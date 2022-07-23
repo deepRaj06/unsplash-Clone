@@ -17,6 +17,7 @@ import {
   Select,
   Spacer,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 import {
   Popover,
@@ -52,10 +53,13 @@ import {
 import { BiUserCircle } from "react-icons/bi";
 
 import { AuthContext } from "../Context/AuthContext";
-import NavbarSearchBar from "./NavbarSearchBar";
+import NavbarSearchBar from "./Navbar_SearchBar_Component/NavbarSearchBar";
+import signupInfo from "../db.json";
 
 const Navbar = () => {
-  const { state, handleSearch, query, setQuery } = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext);
+// console.log(signupInfo.signupInfo.length === 0)
+  // console.log(signupInfo.signupInfo === null ? 'YES' : 'NO');
 
   return (
     <>
@@ -80,14 +84,26 @@ const Navbar = () => {
               <Link to="/blog">Blog</Link>
             </Text>
             <Divider orientation="vertical" />
-            {!state.isAuth ? (
+            {!isAuth ? (
               <HStack spacing="10px">
                 <Text>
                   <Link to="/login">Login</Link>
                 </Text>
-                <Text>/</Text>
+                {/* <Text>/</Text> */}
                 <Text>
-                  <Link to="/signup">Signup</Link>
+                  {
+                    signupInfo.signupInfo === null || '' || signupInfo.signupInfo.length === 0 ? (
+                      <Link to="/signup"> /  Signup</Link>
+                    ) : (
+                      <Tooltip
+                        label="Hurray! SignUp Done Please Login🙂"
+                        aria-label="A tooltip"
+                      >
+                        / SignUp
+                      </Tooltip>
+                    )
+                    //  '/  SignUp'
+                  }
                 </Text>
               </HStack>
             ) : (

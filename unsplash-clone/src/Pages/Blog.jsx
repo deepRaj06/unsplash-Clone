@@ -1,6 +1,6 @@
 import { Box, Divider, Flex, HStack, Image, Spacer, Text } from "@chakra-ui/react";
 import React from "react";
-import Navbar_Blog from "../Components/Navbar_Blog";
+import Navbar_Blog from "../Components/Navbar_SearchBar_Component/Navbar_Blog";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
