@@ -1,70 +1,55 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# unsplash-clone
 
-## Available Scripts
+This websites provides you with beautiful, free images and photos that you can download and use for any project. Better than any royalty free or stock photos.
 
-In the project directory, you can run:
 
-### `npm start`
+## Acknowledgements
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Original website link**: https://unsplash.com/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Netlify link of our project**: https://guarded-ravine-36680.herokuapp.com/
 
-### `npm test`
+## Authors
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Deepak Rajput
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Client:** React, Chakra UI
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Server:** Heroku
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Pages built
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Landing Page**: It contains navbar, searchbar, tabs section, image section and footer.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Create Login / Sign up**: For creating and signing an account.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Explore Page**: It contains different categories for images.
 
-## Learn More
+**Blog Page**: It contains blog written by members of unsplash team.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Screenshots
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Landing Page**
+![App Screenshot](https://github.com/deepRaj06/afraid-sheep-6919/blob/main/Screenshots/landingPage1.png?raw=true)
 
-### Code Splitting
+![App Screenshot](https://github.com/deepRaj06/afraid-sheep-6919/blob/main/Screenshots/landingPage2.png?raw=true)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Explore Page**
+![App Screenshot](https://github.com/deepRaj06/afraid-sheep-6919/blob/main/Screenshots/explorePage.png?raw=true)
 
-### Analyzing the Bundle Size
+**Login Page**
+![App Screenshot](https://github.com/deepRaj06/afraid-sheep-6919/blob/main/Screenshots/loginPage.png?raw=true)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**SignUp Page**
+![App Screenshot](https://github.com/deepRaj06/afraid-sheep-6919/blob/main/Screenshots/signupPage.png?raw=true)
 
-### Making a Progressive Web App
+**Blog Page**
+![App Screenshot](https://github.com/deepRaj06/afraid-sheep-6919/blob/main/Screenshots/blogPage.png?raw=true)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Footer**
+![App Screenshot](https://github.com/deepRaj06/afraid-sheep-6919/blob/main/Screenshots/footerSection.png?raw=true)
