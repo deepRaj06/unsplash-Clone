@@ -54,7 +54,8 @@ import { BiUserCircle } from "react-icons/bi";
 
 import { AuthContext } from "../Context/AuthContext";
 import NavbarSearchBar from "./Navbar_SearchBar_Component/NavbarSearchBar";
-import signupInfo from "../db.json";
+// import signupInfo from "../db.json";
+import signupInfo from "../../../../fake-restful-api/db.json";
 
 const Navbar = () => {
   const { isAuth } = useContext(AuthContext);
