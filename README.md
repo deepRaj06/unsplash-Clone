@@ -8,7 +8,7 @@ This websites provides you with beautiful, free images and photos that you can d
 
 **Original website link**: https://unsplash.com/
 
-**Netlify link of our project**: https://guarded-ravine-36680.herokuapp.com/
+**Netlify link of our project**: https://unsplash-clone-photos.netlify.app/
 
 ## Authors
 
