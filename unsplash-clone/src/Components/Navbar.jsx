@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -55,12 +55,25 @@ import { BiUserCircle } from "react-icons/bi";
 import { AuthContext } from "../Context/AuthContext";
 import NavbarSearchBar from "./Navbar_SearchBar_Component/NavbarSearchBar";
 // import signupInfo from "../db.json";
-import signupInfo from "../../../../fake-restful-api/db.json";
+// import signupInfo from "../../../../fake-restful-api/db.json";
+import axios from "axios";
 
 const Navbar = () => {
   const { isAuth } = useContext(AuthContext);
 // console.log(signupInfo.signupInfo.length === 0)
   // console.log(signupInfo.signupInfo === null ? 'YES' : 'NO');
+
+  const [signUpDetails, setSignUpDetails] = useState([]);
+
+  useEffect(() => {
+    axios({
+      // url: 'http://localhost:3004/signupInfo',
+      url: "https://shrouded-hamlet-12771.herokuapp.com/signupInfo",
+      method: "GET",
+    }).then((res) => {
+      setSignUpDetails([...signUpDetails, ...res.data]);
+    });
+  }, []);
 
   return (
     <>
@@ -93,7 +106,8 @@ const Navbar = () => {
                 {/* <Text>/</Text> */}
                 <Text>
                   {
-                    signupInfo.signupInfo === null || '' || signupInfo.signupInfo.length === 0 ? (
+                    // signupInfo.signupInfo === null || '' || signupInfo.signupInfo.length === 0 ? (
+                      signUpDetails === null || '' || signUpDetails.length === 0 ? (
                       <Link to="/signup"> /  Signup</Link>
                     ) : (
                       <Tooltip
