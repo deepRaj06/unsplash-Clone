@@ -96,7 +96,7 @@ const Signup = () => {
     e.preventDefault();
     axios({
       // url: 'http://localhost:3004/signupInfo',
-      url: 'https://powerful-river-53229.herokuapp.com/signupInfo',
+      url: 'https://shrouded-hamlet-12771.herokuapp.com/signupInfo',
       method: 'POST',
       data: {...signUpInfos}
     })
