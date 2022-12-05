@@ -9,11 +9,6 @@ import {
   Icon,
   IconButton,
   Image,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  MenuButton,
   Select,
   Spacer,
   Text,
@@ -23,49 +18,49 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
 } from "@chakra-ui/react";
-import {
-  PhoneIcon,
-  HamburgerIcon,
-  CheckIcon,
-  Search2Icon,
-  ChevronDownIcon,
-} from "@chakra-ui/icons";
-import { MdCenterFocusWeak } from "react-icons/md";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { Stack, HStack, VStack } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsTwitter, BsFacebook, BsInstagram } from "react-icons/bs";
-import {
-  Menu,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-} from "@chakra-ui/react";
 import { BiUserCircle } from "react-icons/bi";
-
 import { AuthContext } from "../Context/AuthContext";
 import NavbarSearchBar from "./Navbar_SearchBar_Component/NavbarSearchBar";
-// import signupInfo from "../db.json";
-// import signupInfo from "../../../../fake-restful-api/db.json";
 import axios from "axios";
+import { FcGoogle } from "react-icons/fc";
+import { auth, provider } from "../Firebase/config";
+import { signInWithPopup } from "firebase/auth";
 
 const Navbar = () => {
+  const [value, setValue] = useState("");
+  const navigate = useNavigate();
   const { isAuth } = useContext(AuthContext);
-// console.log(signupInfo.signupInfo.length === 0)
-  // console.log(signupInfo.signupInfo === null ? 'YES' : 'NO');
-
   const [signUpDetails, setSignUpDetails] = useState([]);
 
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((data) => {
+        setValue(data.user.displayName);
+        localStorage.setItem("unsplash_userName", data.user.displayName);
+        if (value) {
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        navigate("/login");
+      });
+  };
+
+  const userDet = localStorage.getItem("unsplash_userName");
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   useEffect(() => {
+    setValue(localStorage.getItem("unsplash_userName"));
     axios({
       // url: 'http://localhost:3004/signupInfo',
       url: "https://shrouded-hamlet-12771.herokuapp.com/signupInfo",
@@ -79,7 +74,7 @@ const Navbar = () => {
     <>
       <Box p={2}>
         <Flex>
-          <HStack spacing="30px">
+          <HStack spacing="26px">
             <Link to="/">
               <Image
                 w="44px"
@@ -98,17 +93,17 @@ const Navbar = () => {
               <Link to="/blog">Blog</Link>
             </Text>
             <Divider orientation="vertical" />
-            {!isAuth ? (
-              <HStack spacing="10px">
+            {!isAuth && userDet === null ? (
+              <HStack spacing="6px">
                 <Text>
                   <Link to="/login">Login</Link>
                 </Text>
-                {/* <Text>/</Text> */}
                 <Text>
                   {
-                    // signupInfo.signupInfo === null || '' || signupInfo.signupInfo.length === 0 ? (
-                      signUpDetails === null || '' || signUpDetails.length === 0 ? (
-                      <Link to="/signup"> /  Signup</Link>
+                    signUpDetails === null ||
+                    "" ||
+                    signUpDetails.length === 0 ? (
+                      <Link to="/signup"> / Signup</Link>
                     ) : (
                       <Tooltip
                         label="Hurray! SignUp Done Please Login🙂"
@@ -122,19 +117,51 @@ const Navbar = () => {
                 </Text>
               </HStack>
             ) : (
-              <Icon ml="2rem" mr="2rem" w={6} h={6} as={BiUserCircle}></Icon>
+              <>
+                {userDet === "" || userDet === null ? (
+                  <Icon
+                    ml="2rem"
+                    mr="2rem"
+                    w={6}
+                    h={6}
+                    as={BiUserCircle}
+                  ></Icon>
+                ) : (
+                  <>
+                    <Text>Welcome {userDet}</Text>
+                    <Button
+                      _hover={{
+                        borderColor: "#000",
+                        boxShadow: "0 1px 1px #0000000a",
+                      }}
+                      colorScheme="whitesmoke"
+                      variant="outline"
+                      borderColor="lightgrey"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </Button>
+                  </>
+                )}
+              </>
             )}
-            <Button
-              _hover={{
-                borderColor: "#000",
-                boxShadow: "0 1px 1px #0000000a",
-              }}
-              colorScheme="whitesmoke"
-              variant="outline"
-              borderColor="lightgrey"
-            >
-              Send a photo
-            </Button>
+            {!isAuth && userDet === null ? (
+              <Button
+                leftIcon={<FcGoogle />}
+                _hover={{
+                  borderColor: "#000",
+                  boxShadow: "0 1px 1px #0000000a",
+                }}
+                colorScheme="whitesmoke"
+                variant="outline"
+                borderColor="lightgrey"
+                onClick={handleGoogleLogin}
+              >
+                <Text color="grey">Login with Google</Text>
+              </Button>
+            ) : (
+              ""
+            )}
 
             <Popover placement="bottom-end">
               <PopoverTrigger>

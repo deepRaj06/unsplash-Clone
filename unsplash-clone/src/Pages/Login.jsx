@@ -50,17 +50,20 @@ const Login = () => {
   useEffect(() => {
     axios({
       // url: 'http://localhost:3004/signupInfo',
-      url: "https://shrouded-hamlet-12771.herokuapp.com/signupInfo",
+      // url: "https://shrouded-hamlet-12771.herokuapp.com/signupInfo",
+      url: "https://unsplashlonerailwayserver-production.up.railway.app/signupInfo",
       method: "GET",
     }).then((res) => {
+      console.log(res)
       setSignUpDetails([...signUpDetails, ...res.data]);
     });
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (form.email !== "" && form.password !== "") {
+      console.log(signUpDetails)
+      console.log(form)
       signUpDetails.map((creds) => {
         if (
           creds.email === form.email &&
