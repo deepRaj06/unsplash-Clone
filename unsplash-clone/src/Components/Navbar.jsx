@@ -128,7 +128,7 @@ const Navbar = () => {
                   ></Icon>
                 ) : (
                   <>
-                    <Text>Welcome {userDet}</Text>
+                    <Text>Welcome! {userDet}</Text>
                     <Button
                       _hover={{
                         borderColor: "#000",
